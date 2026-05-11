@@ -5,8 +5,31 @@ Develop basic IoT skills by creating, transmitting, and visualizing sensor data,
 
 **Sensor (your computer) → MQTT broker → Node-RED dashboard**
 
----
+## Prerequisites: Python
+You need Python installed on your computer to run the sensor script.
 
+### Install Python
+Download and install Python from:
+https://www.python.org/downloads/
+
+During installation, check **"Add Python to PATH"**.
+
+You can run the scripts using:
+- Command Prompt / Terminal, or
+- Visual Studio Code (optional): https://code.visualstudio.com/docs/languages/python
+
+#### Alternatives
+
+There are also other Python distributions, e.g. Anaconda:
+https://www.anaconda.com
+
+The full Anaconda distribution is not necessary. Instead, you can install the lightweight version Miniconda:
+https://www.anaconda.com/docs/getting-started/miniconda/main
+
+A Python IDE included in Anaconda is Spyder, which can be installed using the Anaconda prompt:
+`conda install spyder`
+
+---
 ## Data Flow
 
 ```
