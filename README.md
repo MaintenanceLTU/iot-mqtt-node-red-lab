@@ -123,7 +123,7 @@ finally:
 ## Step 3: Node-RED
 
 A Node-RED app has already been prepared for you on IBM Cloud. 
-- Browse to your Node-RED instance https://ltuXX.16qp5wjqoncr.eu-de.codeengine.appdomain.cloud/red/. Replace XX with your app number. 
+- Browse to your Node-RED instance https://ltuXX.16qp5wjqoncr.eu-de.codeengine.appdomain.cloud/. Replace XX with your app number. 
 - Login with the same username and password that you used for the MQTT broker. After you have logged in, the Node-RED editor appears. 
 
 #### Build flow to process data
@@ -152,6 +152,10 @@ return msg;
 ```
 
 ### 3.3 Add dashboard node
+- Install palette @flowfuse/node-red-dashboard
+    - In the menu select Manage palette
+    - In the Install tab, search for @flowfuse/node-red-dashboard
+    - Press install (can take some minutes)
 - Drag selected node, e.g.:
     - **Chart node** (line graph)
     - **Gauge node** 
@@ -160,7 +164,9 @@ return msg;
 
 
 ## Step 4: Deploy
-Deploy and open dashboard URL https://ltuXX.16qp5wjqoncr.eu-de.codeengine.appdomain.cloud/dashboard/ (replace XX with your appnumber).
+Deploy and open dashboard URL https://ltuXX.16qp5wjqoncr.eu-de.codeengine.appdomain.cloud/dashboard/.
+- Replace XX with your appnumber
+- Use the subdomain specified in the dahsboard page configureation, default is dashboard
 
 ### Test
 
