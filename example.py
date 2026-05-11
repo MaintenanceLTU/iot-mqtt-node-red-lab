@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import paho.mqtt.client as mqtt
 import time
 import json
@@ -9,7 +8,7 @@ BROKER = "YOUR_VM_PUBLIC_IP"
 PORT = 1883
 USERNAME = "myuser"
 PASSWORD = "yourpass"
-TOPIC = "D0022B/ltu1X"
+TOPIC = "coursecode/ltuXX" #e.g. D0022B/ltu11
 
 
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
@@ -21,11 +20,15 @@ client.loop_start()
 def read_data():
     data = {}
     
-    # Read cpu percentage
-    cpu_percent = psutil.cpu_percent(interval=0.1)
+    # Read CPU percentage
+    # interval=None → non-blocking, returns usage since last call (first call returns 0.0)
+    # interval=1 → blocks for 1 s and returns average CPU usage over that period
+    # Use interval=None for continuous loops, or a small value (e.g. 0.1) for sampling
+    cpu_percent = psutil.cpu_percent(interval=None)
     data["cpu"] = {
         "percent" : {
-            "value": cpu_percent
+            "value": cpu_percent,
+            "unit": "%"
             }
         }
     
@@ -34,7 +37,8 @@ def read_data():
     if batt:
         data["battery"] = {
             "percent": { 
-                "value": batt.percent
+                "value": batt.percent,
+                "unit": "%"
                 },
             "plugged": { 
                 "value": batt.power_plugged
@@ -45,9 +49,10 @@ def read_data():
 
 # --- Start ---
 try:
+        
     while True:
         ts = int(time.time()*1e3) #epoch time in ms
-       
+        
         data = read_data()
     
         payload = {
