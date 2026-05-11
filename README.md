@@ -54,7 +54,7 @@ BROKER = "YOUR_VM_PUBLIC_IP"
 PORT = 1883
 USERNAME = "myuser"
 PASSWORD = "yourpass"
-TOPIC = "coursecode/ltuXX"
+TOPIC = "coursecode/ltuXX" #e.g. D0022B/ltu11
 
 
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
@@ -120,57 +120,49 @@ finally:
 
 ---
 
-## Step 3: Node-RED (Code Engine)
+## Step 3: Node-RED
 
-A Node-RED instance has already been prepared for you on IBM Cloud. 
+A Node-RED app has already been prepared for you on IBM Cloud. 
 - Browse to your Node-RED instance https://ltuXX.16qp5wjqoncr.eu-de.codeengine.appdomain.cloud/red/. Replace XX with your app number. 
 - Login with the same username and password that you used for the MQTT broker. After you have logged in, the Node-RED editor appears. 
 
-### 1. Add MQTT-in node
+#### Build flow to process data
+```
+mqtt in → function → dashboard (e.g. chart or gauge)
+```
+
+### 3.1 Add MQTT-in node
 - Drag **mqtt in** node
 - Double-click → configure
+    - Server: `YOUR_VM_PUBLIC_IP`
+    - Port: `1883`
+    - Username: `myuser`
+    - Password: `yourpass`
+- Set topic `coursecode/ltuXX`, e.g. `D0002B/ltu11`. The topic needs to match the topic in your Python code.
 
-### 2. Configure broker
-- Server: `YOUR_VM_PUBLIC_IP`
-- Port: `1883`
-- Username: `myuser`
-- Password: `yourpass`
-
-### 3. Set topic
-```
-D0022B/ltuXX
-```
-
----
-
-## Step 4: Process data
-
-### Add nodes:
-
-```
-mqtt in → json → function → chart
-```
-
-### Function node:
-For example selecting cpu percentage value
+### 3.2 Add function node
+- Drag **function** node 
+- Example selecting cpu percentage value
 ```javascript
-msg.payload = msg.payload.d.cpu.percent.value;
+const ts = msg.payload.ts;
+const data = msg.payload.d;
+msg.timestamp = ts;
+msg.payload = data.cpu.percent.value;
 return msg;
 ```
 
----
+### 3.3 Add dashboard node
+- Drag selected node, e.g.:
+    - **Chart node** (line graph)
+    - **Gauge node** 
+- Double-click → configure
+    - Create or modify Dashboard Group and Page
 
-## Step 5: Dashboard
 
-Add:
-- **Chart node** (line graph)
-- **Gauge node** (optional)
-
+## Step 4: Deploy
 Deploy and open dashboard URL https://ltuXX.16qp5wjqoncr.eu-de.codeengine.appdomain.cloud/dashboard/ (replace XX with your appnumber).
 
----
-
-## Step 6: Test
+### Test
 
 1. Run Python script
 2. Open Node-RED dashboard
