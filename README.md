@@ -28,7 +28,7 @@ Your teacher provides:
 - Port: `1883`
 - Username: `myuser`
 - Password: `yourpass`
-- Application: `ltu1X`
+- Application: `ltuXX`
 
 ---
 
@@ -43,6 +43,7 @@ pip install paho-mqtt psutil
 ```
 
 ### Example script
+See also [example.py](example.py)
 ```python
 import paho.mqtt.client as mqtt
 import time
@@ -53,7 +54,7 @@ BROKER = "YOUR_VM_PUBLIC_IP"
 PORT = 1883
 USERNAME = "myuser"
 PASSWORD = "yourpass"
-TOPIC = "D0022B/ltuXX"
+TOPIC = "coursecode/ltuXX"
 
 
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
@@ -165,7 +166,7 @@ Add:
 - **Chart node** (line graph)
 - **Gauge node** (optional)
 
-Deploy and open dashboard URL https://ltuXX.16qp5wjqoncr.eu-de.codeengine.appdomain.cloud/dashboard/.
+Deploy and open dashboard URL https://ltuXX.16qp5wjqoncr.eu-de.codeengine.appdomain.cloud/dashboard/ (replace XX with your appnumber).
 
 ---
 
@@ -195,6 +196,7 @@ pip install ntplib
 ```
 
 #### Use provided helpers.py and import the TimeClient
+For code see [helpers.py](helpers.py)
 ```python
 from helpers import TimeClient
 ```
