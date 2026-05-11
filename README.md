@@ -152,15 +152,20 @@ return msg;
 ```
 
 ### 3.3 Add dashboard node
-- Install palette @flowfuse/node-red-dashboard
-    - In the menu select Manage palette
-    - In the Install tab, search for @flowfuse/node-red-dashboard
-    - Press install (can take some minutes)
-- Drag selected node, e.g.:
-    - **Chart node** (line graph)
-    - **Gauge node** 
-- Double-click → configure
-    - Create or modify Dashboard Group and Page
+- Install the dashboard nodes:
+    - Open the menu (top right) → **Manage palette**
+    - Go to the **Install** tab
+    - Search for `@flowfuse/node-red-dashboard`
+    - Click **Install** (this may take a minute and Node-RED may restart)
+
+- After installation, new nodes appear in the palette:
+    - Drag a **Chart** node (time series), or
+    - Drag a **Gauge** node (current value)
+
+- Double-click the selected dashboard node → configure:
+    - Create or select a **Dashboard group**
+    - Assign the group to a **Dashboard page**
+    - Configure label, units, and display options
 
 
 ## Step 4: Deploy
