@@ -14,7 +14,6 @@ TOPIC = "coursecode/ltuXX" #e.g. D0022B/ltu11
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 client.username_pw_set(USERNAME, PASSWORD)
 client.connect(BROKER, PORT, 60)
-client.loop_start()
         
 
 def read_data():
@@ -48,6 +47,7 @@ def read_data():
     return data
 
 # --- Start ---
+client.loop_start()
 try:
         
     while True:
@@ -69,4 +69,5 @@ try:
 except Exception as e:
     print(e)
 finally:
+    client.loop_stop()
     client.disconnect()
