@@ -79,13 +79,10 @@ USERNAME = "myuser"
 PASSWORD = "yourpass"
 TOPIC = "coursecode/ltuXX" #e.g. D0022B/ltu11
 
-
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 client.username_pw_set(USERNAME, PASSWORD)
 client.connect(BROKER, PORT, 60)
-client.loop_start()
-        
-
+      
 def read_data():
     data = {}
     
@@ -117,6 +114,7 @@ def read_data():
     return data
 
 # --- Start ---
+client.loop_start()
 try:
         
     while True:
@@ -138,6 +136,7 @@ try:
 except Exception as e:
     print(e)
 finally:
+    client.loop_stop()
     client.disconnect()
 ```
 
@@ -224,14 +223,14 @@ pip install ntplib
 #### Use provided helpers.py and import the TimeClient
 For code see [helpers.py](helpers.py)
 ```python
-from helpers import TimeClient
+from helpers import NTPTimeClient
 ```
 #### Before the main while loop, initialise the time client and sync it
 ```python
-timeClient = TimeClient()
-timeClient.syncTime()
+time_client = NTPTimeClient()
+time_client.sync_ntp()
 ```
 #### Replace the timestamp (ts) with the synced timeClient
 ```python
-ts = timeClient.getEpochTime("ms")
+ts = time_client.get_epoch_time("ms")
 ```
