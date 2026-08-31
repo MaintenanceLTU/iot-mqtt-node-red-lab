@@ -67,18 +67,67 @@ Use `data` for sensor measurements, for example:
 | `config` | Configuration data |
 
 ### Message Format
-Sensor data is sent as a JSON message with a timestamp (`ts`) and measurements (`d`). 
+Sensor data is sent as a JSON message with a timestamp (`ts`) and measurements (`d`), using the following structure:
 
 ```json
 {
   "ts": 1710000000000,
   "d": {
-    "sensor": {
-      "value": 1.0,
-      "unit": "unit"
+    "metric_name": {
+      "value_name": {
+        "value": 1.0,
+        "unit": "unit_string"
+      }
     }
   }
 }
 ```
-`ts` is a Unix epoch timestamp in milliseconds.
+#### Field Specifications
 
+| Field | Type | Required | Description |
+| :--- | :--- | :--- | :--- |
+| `ts` | Integer | Yes | UNIX epoch timestamp in milliseconds (e.g., `1710000000000`). |
+| `d` | Object | Yes | Data container containing all measurement data. |
+| `d.<metric>` | Object | Yes | Grouping object for a sensor or telemetry group (e.g., `acceleration`, `cpu`). |
+| `d.<metric>.<key>.value` | Number / Bool | Yes | Numerical or boolean reading value. |
+| `d.<metric>.<key>.unit` | String | No | Unit of measurement (e.g., `"g"`, `"%"`). |
+
+#### Example Payload
+```json
+{
+  "ts": 1710000000000,
+  "d": {
+    "acceleration": {
+        "x": {
+            "value": 1.0,
+            "unit": "g"
+        }
+    }
+  }
+}
+```
+
+
+#### JSON Schema
+```json
+{
+  "$schema": "[https://json-schema.org/draft/2020-12/schema](https://json-schema.org/draft/2020-12/schema)",
+  "title": "SensorDataPayload",
+  "type": "object",
+  "required": ["ts", "d"],
+  "properties": {
+    "ts": {
+      "type": "integer",
+      "description": "UNIX epoch timestamp in milliseconds"
+    },
+    "d": {
+      "type": "object",
+      "description": "Container for all sensor measurement readings",
+      "additionalProperties": {
+        "type": "object",
+        "description": "Sensor metric or grouping (e.g. acceleration)"
+      }
+    }
+  }
+}
+```
