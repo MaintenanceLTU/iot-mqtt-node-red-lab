@@ -24,20 +24,24 @@ mqtt in → function → dashboard (e.g. chart or gauge)
 
 ## 2 Add function node
 - Drag **function** node 
+
+### Example Ardunio: Selecting z-axis acceleration
+Select the z-axis acceleration (normally about `1 g` when the board lies flat):
+
+```javascript
+const ts = msg.payload.ts;
+const data = msg.payload.d;
+msg.timestamp = ts;
+msg.payload = data.acceleration.z.value;
+return msg;
+```
+
 ### Example Python: Selecting cpu percentage value
 ```javascript
 const ts = msg.payload.ts;
 const data = msg.payload.d;
 msg.timestamp = ts;
 msg.payload = data.cpu.percent.value;
-return msg;
-```
-### Example Ardunio: Selecting z-axis acceleration
-Select the z-axis acceleration (normally about `1 g` when the board lies flat):
-
-```javascript
-msg.timestamp = Date.now();
-msg.payload = msg.payload.d.acceleration.z.value;
 return msg;
 ```
 
