@@ -22,7 +22,7 @@ Choose the tutorial that matches your sensor platform.
 - [Arduino Uno WiFi Rev2](Arduino/tutorial_arduino_uno_wifi_rev2.md)  
   Read accelerometer data from the built-in IMU and publish it to MQTT.
 
-- [Python](Python/tutorial_python.md)  
+- [Python (PC/Laptop)](Python/tutorial_python.md)  
   Read CPU and battery data from your computer and publish it to MQTT.
 
 Both tutorials use the same MQTT broker and Node-RED dashboard. Once your sensor code is sending data, follow the [Node-RED tutorial](NodeRed/tutorial_nodered.md) to set up your dashboard (this link is also included in each platform tutorial).
