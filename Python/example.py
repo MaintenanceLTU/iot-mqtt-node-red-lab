@@ -1,21 +1,38 @@
 # -*- coding: utf-8 -*-
-import paho.mqtt.client as mqtt
+import os
 import time
 import json
 import psutil
+from dotenv import load_dotenv
+import paho.mqtt.client as mqtt
 
-BROKER = "YOUR_VM_PUBLIC_IP" #e.g. "156.xxx.xxx.xxx"
+# Load environment variables from .env file
+load_dotenv()
+
+# --- Configuration ---
+BROKER = os.getenv("MQTT_BROKER")
 PORT = 1883
+USERNAME = os.getenv("MQTT_USERNAME")
+PASSWORD = os.getenv("MQTT_PASSWORD")
+
 CLIENT_ID = "ltuXX-deviceType-number" # e.g. ltu10-laptop-1
-USERNAME = "ltuXX" #e.g. ltu10
-PASSWORD = "yourpass" #In production systems, credentials should not be hardcoded in source code.
 TOPIC = "coursecode/ltuXX/category" #e.g. D0022B/ltu10/data
 
+# --- MQTT Callbacks for Status Logging ---
+def on_connect(client, userdata, flags, rc, properties=None):
+    if rc == 0:
+        print(f"Successfully connected to MQTT broker at {BROKER}:{PORT}")
+    else:
+        print(f"Failed to connect, return code {rc}")
+
+def on_disconnect(client, userdata, rc, properties=None):
+    print("Disconnected from MQTT broker.")
+    
 # Initialize MQTT client
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id=CLIENT_ID)
 client.username_pw_set(USERNAME, PASSWORD)
-client.connect(BROKER, PORT, 60)
-        
+client.on_connect = on_connect
+client.on_disconnect = on_disconnect
 
 def read_data():
     data = {}
@@ -48,6 +65,7 @@ def read_data():
     return data
 
 # --- Start ---
+client.connect(BROKER, PORT, 60)
 client.loop_start()
 try:
         
@@ -63,12 +81,14 @@ try:
     
         client.publish(TOPIC, json.dumps(payload))
     
-        # print(payload)  # uncomment for debugging
+        # print(f"Published to [{TOPIC}]: {payload}")  # uncomment for debugging
     
         time.sleep(1)
-        
+       
+except KeyboardInterrupt:
+    print("\nScript stopped by user.")
 except Exception as e:
-    print(e)
+    print(f"Unexpected error: {e}")
 finally:
     client.loop_stop()
     client.disconnect()

@@ -53,7 +53,7 @@ Your teacher provides:
 
 Use 
  - Client id: `application_id-deviceType-number` # e.g. ltu10-laptop-1
- - Topic: `course_code/application_id/data` #e.g. D0022B/ltu10/data
+ - Topic: `course_code/application_id/data` #e.g. D0023B/ltu10/data
 
 ---
 
@@ -64,29 +64,44 @@ https://psutil.readthedocs.io/
 
 ### Install dependency
 ```bash
-pip install paho-mqtt psutil
+pip install paho-mqtt psutil python-dotenv
+```
+
+Create a file called `.env` in the same folder as the python script, change to your recivied ip and credentials (user and password) for the mqtt broker:
+```env
+MQTT_BROKER=YOUR_VM_PUBLIC_IP
+MQTT_USERNAME=myuser
+MQTT_PASSWORD=yourpass
 ```
 
 ### Example script
 See also [example.py](example.py)
 ```python
-import paho.mqtt.client as mqtt
+import os
 import time
 import json
 import psutil
+from dotenv import load_dotenv
+import paho.mqtt.client as mqtt
 
-BROKER = "YOUR_VM_PUBLIC_IP" 
+# Load secrets from .env file
+load_dotenv()
+
+# --- Broker Credentials (from .env) ---
+BROKER = os.getenv("MQTT_BROKER")
 PORT = 1883
+USERNAME = os.getenv("MQTT_USERNAME")
+PASSWORD = os.getenv("MQTT_PASSWORD")
+
+# --- Device & Topic Setup ---
 CLIENT_ID = "ltuXX-deviceType-number" 
-USERNAME = "ltuXX" 
-PASSWORD = "yourpass" #In production systems, credentials should not be hardcoded in source code.
 TOPIC = "coursecode/ltuXX/category" #e.g. D0022B/ltu10/data
 
-# Initialize MQTT client
+# Initialize MQTT client (with API v2)
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id=CLIENT_ID)
 client.username_pw_set(USERNAME, PASSWORD)
-client.connect(BROKER, PORT, 60)
-      
+
+
 def read_data():
     data = {}
     
@@ -118,11 +133,13 @@ def read_data():
     return data
 
 # --- Start ---
+client.connect(BROKER, PORT, keepalive=60)
 client.loop_start()
+
 try:
         
     while True:
-        ts = int(time.time()*1e3) #epoch time in ms
+        ts = int(time.time() * 1000) #epoch time in ms
         
         data = read_data()
     
@@ -133,12 +150,14 @@ try:
     
         client.publish(TOPIC, json.dumps(payload))
     
-        # print(payload)  # uncomment for debugging
+        # Uncomment for debugging
+        # print(f"Published to [{TOPIC}]: {payload}") 
     
         time.sleep(1)
-        
+except KeyboardInterrupt:
+    print("\nScript stopped by user.")       
 except Exception as e:
-    print(e)
+    print(f"Unexpected error: {e}")
 finally:
     client.loop_stop()
     client.disconnect()
