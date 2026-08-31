@@ -45,40 +45,15 @@ Dashboard (web browser)
 ## Step 1: MQTT Broker
 
 Your teacher provides:
-- Broker IP: `YOUR_VM_PUBLIC_IP`
+- Broker IP: `YOUR_VM_PUBLIC_IP` #e.g. "156.xxx.xxx.xxx"
 - Port: `1883`
-- Username: `myuser`
+- Username: `myuser` #e.g. ltu10
 - Password: `yourpass`
 - Application ID: `ltuXX`
 
-### Client ID
-
-Client IDs for sensors should follow:
-`application-deviceType-number`
-
-Examples:
-- `ltu10-laptop-1`
-- `ltu10-rpi-1`
-- `ltu10-arduino-2`
-
-### Topic
-
-Topics are usually organized as:
-`organization/device/category`
-
-In this exercise:
-- course code → organization
-- application ID → device
-- category → message type
-
-| Category | Meaning |
-|---|---|
-| `data` / `telemetry` | Sensor measurements |
-| `status` | Online/offline or device state |
-| `event` | Events |
-| `alert` | Alarms or warnings |
-| `command` | Commands sent to device |
-| `config` | Configuration data |
+Use 
+ - Client id: `application_id-deviceType-number` # e.g. ltu10-laptop-1
+ - Topic: `course_code/application_id/data` #e.g. D0022B/ltu10/data
 
 ---
 
@@ -100,10 +75,10 @@ import time
 import json
 import psutil
 
-BROKER = "YOUR_VM_PUBLIC_IP" #e.g. "156.xxx.xxx.xxx"
+BROKER = "YOUR_VM_PUBLIC_IP" 
 PORT = 1883
-CLIENT_ID = "ltuXX-deviceType-number" # e.g. ltu10-laptop-1
-USERNAME = "ltuXX" #e.g. ltu10
+CLIENT_ID = "ltuXX-deviceType-number" 
+USERNAME = "ltuXX" 
 PASSWORD = "yourpass" #In production systems, credentials should not be hardcoded in source code.
 TOPIC = "coursecode/ltuXX/category" #e.g. D0022B/ltu10/data
 

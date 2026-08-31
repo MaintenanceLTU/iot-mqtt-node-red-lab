@@ -48,6 +48,11 @@ Your teacher provides:
 - Password: `yourpass`
 - Application: `ltuXX`
 
+Use 
+ - Client id: `application_id-deviceType-number` # e.g. ltu10-arduino-1
+ - Topic: `course_code/application_id/data` #e.g. D0023B/ltu10/data
+
+
 ---
 
 ## Step 2: Arduino Sensor (on your computer)
@@ -91,7 +96,8 @@ char broker[] = SECRET_BROKER;
 int port = 1883;
 char username[] = SECRET_MQTT_USERNAME;
 char password[] = SECRET_MQTT_PASSWORD;
-char topic[] = "coursecode/ltuXX";  // e.g. D0023B/ltu11
+char clientId[] = "ltuXX--2";
+char topic[] = "coursecode/ltuXX/category";  // e.g. D0023B/ltu10/data
 
 WiFiClient wifiClient;
 MqttClient client(wifiClient);
@@ -126,7 +132,7 @@ uint64_t getEpochTimeMs() {
 void connectMqtt() {
   client.setUsernamePassword(username, password);
 
-  while (!client.connect(broker, port)) {
+  while (!client.connect(broker, port, clientId)) {
     Serial.print("MQTT connection failed, error code: ");
     Serial.println(client.connectError());
     delay(5000);
