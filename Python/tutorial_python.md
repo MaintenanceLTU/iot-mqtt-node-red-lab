@@ -67,14 +67,15 @@ https://psutil.readthedocs.io/
 pip install paho-mqtt psutil python-dotenv
 ```
 
-Create a file called `.env` in the same folder as the python script, change to your recivied ip and credentials (user and password) for the mqtt broker:
+### Example code
+#### Setting credentials in environment variables
+Create a file called `.env` in the same folder as the python script, change to your received ip and credentials (user and password) for the mqtt broker:
 ```env
 MQTT_BROKER=YOUR_VM_PUBLIC_IP
 MQTT_USERNAME=myuser
 MQTT_PASSWORD=yourpass
 ```
-
-### Example script
+#### Python script
 See also [example.py](example.py)
 ```python
 import os
