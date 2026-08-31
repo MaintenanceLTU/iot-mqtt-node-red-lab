@@ -56,7 +56,9 @@ In Arduino IDE, open **Tools → Manage Libraries** and install:
 - `ArduinoJson`
 - `Arduino_LSM6DS3`
 
-Create a file called `arduino_secrets.h` in the same folder as the sketch, change to your recivied ip and credentials for the wifi and mqtt broker:
+### Example code
+#### Setting credentials in secrets file
+Create a file called `arduino_secrets.h` in the same folder as the sketch. Change to your Wi-Fi settings and credentials for the MQTT broker:
 ```cpp
 #define SECRET_SSID "YOUR_WIFI_NAME"
 #define SECRET_PASS "YOUR_WIFI_PASSWORD"
@@ -67,7 +69,7 @@ Create a file called `arduino_secrets.h` in the same folder as the sketch, chang
 ```
 
 
-### Example script
+#### Example sketch
 See also [uno_wifi_rev2_mqtt.ino](uno_wifi_rev2_mqtt.ino)
 
 ```cpp
