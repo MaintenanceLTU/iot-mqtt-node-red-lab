@@ -47,7 +47,7 @@ Dashboard (web browser)
 Your teacher provides:
 - Broker IP: `YOUR_VM_PUBLIC_IP` #e.g. "156.xxx.xxx.xxx"
 - Port: `1883`
-- Username: `myuser` #e.g. ltu10
+- Username: `myuser`
 - Password: `yourpass`
 - Application ID: `ltuXX`
 
