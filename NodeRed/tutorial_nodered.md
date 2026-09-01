@@ -1,7 +1,7 @@
 # Node-RED
 A Node-RED app has already been prepared for you on IBM Cloud. 
 - Browse to your Node-RED instance https://ltuXX.16qp5wjqoncr.eu-de.codeengine.appdomain.cloud/. Replace XX with your app number. 
-- Login with the your student-id (e.g. annjoh-1) as user and use the same password that you used for the MQTT broker. 
+- Login with the your provided user and password (same as for the MQTT broker). 
 - After you have logged in, the Node-RED editor appears. 
 
 ### Build flow to process data
@@ -15,7 +15,7 @@ mqtt in → function → dashboard (e.g. chart or gauge)
 - Double-click → configure
     - Server: `YOUR_VM_PUBLIC_IP`
     - Port: `1883`
-    - Username: `ltuXX`
+    - Username: `myuser`
     - Password: `yourpass`
     - Client-ID: Leave empty or use an application identifier, e.g. `ltuXX-nodered`. Do **not** use the same Client-ID as for the sensor.
 
