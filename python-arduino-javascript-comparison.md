@@ -93,19 +93,19 @@ Node-RED provides `msg`. The code reads properties from this object, performs or
 
 [^var-let]: `var` and `let`: Both declare variables in JavaScript. `var` is function-scoped, while `let` is block-scoped. In simple Node-RED Function-node code, they often behave the same. `var` is common in older examples, while `let` provides more precise scope control.
 
-C++ and JavaScript require parentheses around conditions and use braces for blocks:
-
+Compared with Python’s indentation-based blocks, C++ and JavaScript require parentheses around conditions and use braces to define blocks.
+#### Python
 ```python
 if value > 10:
     result = value * 2
 ```
-
+#### Arduino C++
 ```cpp
 if (value > 10) {
   result = value * 2;
 }
 ```
-
+#### JavaScript
 ```javascript
 if (value > 10) {
     result = value * 2;
@@ -115,7 +115,7 @@ if (value > 10) {
 ## 3. Variables and types
 
 Python and JavaScript determine types from values. C++ requires explicit types.
-
+#### Python
 ```python
 count = 5
 temperature = 21.5
@@ -123,6 +123,7 @@ name = "sensor_1"
 is_active = True
 ```
 
+#### Arduino C++
 ```cpp
 int count = 5;
 float temperature = 21.5;
@@ -130,6 +131,7 @@ const char* name = "sensor_1";
 bool isActive = true;
 ```
 
+#### JavaScript
 ```javascript
 let count = 5;
 const temperature = 21.5;
@@ -165,7 +167,7 @@ Most arithmetic operators are the same:
 | Exponentiation | `a ** b` | `pow(a, b)` | `a ** b` |
 | Add one | `a += 1` | `a++` or `a += 1` | `a++` or `a += 1` |
 
-### C++ integer division
+### Integer division
 
 In C++, the operand types affect division:
 
@@ -176,7 +178,7 @@ float result = 7.0 / 2.0; // 3.5
 
 Python and JavaScript produce `3.5` for `7 / 2`.
 
-### JavaScript equality
+### Equality
 
 Prefer strict equality in JavaScript:
 
@@ -188,7 +190,7 @@ value !== 5
 Unlike `==` and `!=`, these operators do not convert the operands to matching types before comparison.
 
 ## 5. Conditions
-
+#### Python
 ```python
 if value > 80:
     status = "high"
@@ -198,6 +200,7 @@ else:
     status = "normal"
 ```
 
+#### Arduino C++
 ```cpp
 const char* status;
 
@@ -209,7 +212,7 @@ if (value > 80) {
   status = "normal";
 }
 ```
-
+#### JavaScript
 ```javascript
 let status;
 
@@ -227,7 +230,7 @@ Python uses `elif`; C++ and JavaScript use `else if`.
 ## 6. Lists and arrays
 
 Python lists and JavaScript arrays can grow dynamically:
-
+#### Python
 ```python
 values = [18.2, 19.1, 20.0]
 values.append(21.3)
@@ -235,6 +238,7 @@ first = values[0]
 number_of_values = len(values)
 ```
 
+#### JavaScript
 ```javascript
 const values = [18.2, 19.1, 20.0];
 values.push(21.3);
@@ -243,7 +247,7 @@ const numberOfValues = values.length;
 ```
 
 A basic C++ array has a fixed size and one element type:
-
+#### Arduino C++
 ```cpp
 float values[] = {18.2, 19.1, 20.0};
 float first = values[0];
@@ -256,6 +260,7 @@ All three use index `0` for the first element.
 
 A Python dictionary and a JavaScript object both store named values:
 
+#### Python
 ```python
 measurement = {
     "value": 21.5,
@@ -266,6 +271,7 @@ measurement = {
 value = measurement["value"]
 ```
 
+#### JavaScript
 ```javascript
 const measurement = {
     value: 21.5,
@@ -277,7 +283,7 @@ const value = measurement.value;
 ```
 
 A C++ `struct` defines the name and type of each field:
-
+#### Arduino C++
 ```cpp
 struct Measurement {
   float value;
@@ -378,17 +384,20 @@ for (const value of values) {
 
 ## 9. Functions
 
+#### Python
 ```python
 def celsius_to_kelvin(celsius):
     return celsius + 273.15
 ```
 
+#### Arduino C++
 ```cpp
 float celsiusToKelvin(float celsius) {
   return celsius + 273.15;
 }
 ```
 
+#### JavaScript
 ```javascript
 function celsiusToKelvin(celsius) {
     return celsius + 273.15;
