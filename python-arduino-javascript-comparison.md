@@ -29,6 +29,7 @@ This guide compares programming concepts in Python, Arduino C++, and JavaScript.
 | How it starts | The interpreter executes a script | The compiled sketch starts when the board powers on or resets | A message arrives at the Function node |
 | Repetition | Written explicitly with a loop or scheduler | Arduino repeatedly calls `loop()` | Node-RED invokes the function once for each incoming message |
 | Translation | Interpreted at run time | Compiled before upload | Interpreted or just-in-time compiled by the JavaScript engine |
+
 [^node-red-hosting]: For example, Node-RED can run locally, on an edge device, or as a container image on a cloud platform.
 
 ### Program structure
