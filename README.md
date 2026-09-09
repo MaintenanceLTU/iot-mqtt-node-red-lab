@@ -131,3 +131,9 @@ Sensor data is sent as a JSON message with a timestamp (`ts`) and measurements (
   }
 }
 ```
+
+## License
+
+Unless otherwise stated:
+* Source code is licensed under the [MIT License](LICENSE-CODE).
+* Original non-code content is licensed under the [Creative Commons Attribution 4.0 International License](LICENSE-CONTENT.md).
