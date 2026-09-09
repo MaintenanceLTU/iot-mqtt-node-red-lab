@@ -1,4 +1,4 @@
-# IoT Exercise: Sensor → MQTT → Dashboard
+# IoT Tutorial: Sensor → MQTT → Dashboard
 
 ## Objective
 Develop basic IoT skills by creating, transmitting, and visualizing sensor data, and understand how such architectures are used for condition monitoring.
